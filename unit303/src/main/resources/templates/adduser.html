@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj uzytkownika</title>
+</head>
+<body>
+    <table class="table">
+        <thead class="theme.dark">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${userList}">
+                <form action="/deleteUser" method="post" th:object="${user}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.surname}"></td>
+                    <td type="number" th:text="${user.age}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                        <input type="hidden" name="id" th:value="${user.id}">
+                        <button class="btn btn-warning" value="remove">Usuń</button>
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+    <form action="index">
+        <button type="submit">Powrót</button>
+    </form>
+</body>
+</html>
