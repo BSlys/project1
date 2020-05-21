@@ -8,22 +8,22 @@
     <table class="table">
         <thead class="theme.dark">
             <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Age</th>
-                <th>Password</th>
-                <th>Role</th>
+                <th>Roles</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${userList}">
+            <tr th:each="user : ${userListAndInput.userService.getAllUsers()}">
                 <form action="/deleteUser" method="post" th:object="${user}">
-                    <td th:text="${user.id}"></td>
-                    <td th:text="${user.name}"></td>
-                    <td th:text="${user.surname}"></td>
-                    <td type="number" th:text="${user.age}"></td>
-                    <td th:text="${user.role}"></td>
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getName()}"></td>
+                    <td th:text="${user.getSurname()}"></td>
+                    <td type="number" th:text="${user.getAge()}"></td>
+                    <td th:text="${user.getRoles()}"></td>
                     <td>
                         <input type="hidden" name="id" th:value="${user.id}">
                         <button class="btn btn-warning" value="remove">Usuń</button>
@@ -32,6 +32,20 @@
             </tr>
         </tbody>
     </table>
+    <form action="/adduser" method="post">
+        <p>Name:<input type="text" name="name" th:value="*{userListAndInput.userDto.name}"></p>
+        <p>Surname:<input type="text" name="surname" th:value="*{userListAndInput.userDto.surname}"></p>
+        <p>Age:<input type="number" name="age" th:value="*{userListAndInput.userDto.age}"></p>
+        <p>Password:<input type="text" name="password" th:value="*{userListAndInput.userDto.password}"></p>
+        <select field="*{userListAndInput.userDto.roles}">
+            <option th:each="role : ${T(com.sda.werehouse.unit303.model.Roles).values()}"
+            th:value="${role}"
+            th:text="${role}">
+                <input type="hidden" th:value="${role}">
+            </option>
+        </select>
+        <button type="submit">Dodaj użytkownika</button>
+    </form>
     <form action="index">
         <button type="submit">Powrót</button>
     </form>

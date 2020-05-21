@@ -1,5 +1,7 @@
 package com.sda.werehouse.unit303.configuration;
 
+import com.sda.werehouse.unit303.model.UsersWrapper;
+import com.sda.werehouse.unit303.repositories.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,4 +18,8 @@ public class SpringConfig {
 
     @Bean
     public ModelMapper modelMapper() { return new ModelMapper(); }
+
+    @Bean
+    public UsersWrapper usersWrapper() {return new UsersWrapper();}
+    
 }
