@@ -14,9 +14,6 @@ public class UserController {
     @Autowired
     private UsersWrapper usersWrapper;
 
-    //@Autowired
-    //public UserService userService;
-
     @GetMapping("/adduser")
     public ModelAndView users() {
         return new ModelAndView("adduser", "userListAndInput", usersWrapper);

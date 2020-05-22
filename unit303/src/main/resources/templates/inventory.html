@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Magazyn</title>
@@ -16,14 +16,26 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>granat</td>
-                <td>uzytkowy</td>
-                <td>10</td>
-                <td>Zamów</td>
+            <tr th:each="item : ${ItemList.itemService.getAllItems()}">
+                <form action="/deleteItem" method="post">
+                    <td th:text="${item.getId()}"></td>
+                    <td th:text="${item.getName()}"></td>
+                    <td th:text="cos"></td>
+                    <td th:text="cos"></td>
+                    <td>
+                        <input type="hidden" name="id" th:value="${item.getId()}">
+                        <button class="btn btn-warning" type="remove">Usuń wpis</button>
+                    </td>
+                </form>
             </tr>
         </tbody>
     </table>
+    <form action="/addItem" method="post">
+        <p>Name<input type="text" name="name" th:value="*{ItemList.itemDto.name}"></p>
+        <button type="submit">Przeslij</button>
+    </form>
+    <form action="/index">
+        <button type="submit">Powrót do menu</button>
+    </form>
 </body>
 </html>
