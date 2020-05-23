@@ -18,6 +18,8 @@ public class inventoryController {
     public String inventory(Model model) {
         model.addAttribute("ItemList", itemService.getAllItems());
         model.addAttribute("ItemDto", new ItemDto());
+        model.addAttribute("Message", itemService.getMessage());
+        itemService.setMessage("oczekiwanie na instrukcje");
         return "/inventory";
     }
 

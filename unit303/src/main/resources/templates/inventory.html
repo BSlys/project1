@@ -5,6 +5,9 @@
     <title>Magazyn</title>
 </head>
 <body>
+    <h1>
+        Dostępne pozycje
+    </h1>
     <table class="table">
         <thead class="theme.dark">
             <tr>
@@ -17,19 +20,25 @@
         </thead>
         <tbody>
             <tr th:each="item : ${ItemList}">
-                <form action="/deleteItem" method="post">
+                <form action="/deleteItem" method="post" th:object="${item}">
                     <td th:text="${item.getId()}"></td>
                     <td th:text="${item.getName()}"></td>
                     <td th:text="${item.getItemRole()}"></td>
                     <td th:text="cos"></td>
                     <td>
                         <input type="hidden" name="id" th:value="${item.getId()}">
+                        <input type="hidden" name="itemRole" th:value="${item.getItemRole()}">
                         <button class="btn btn-warning" type="remove">Usuń wpis</button>
                     </td>
                 </form>
             </tr>
+
         </tbody>
     </table>
+    <h1>
+        <td th:text="${Message}"></td>
+    </h1>
+    <h1>Kataloguj produkt</h1>
     <form action="/addItem" method="post">
         <p>Name<input type="text" name="name" th:value="*{ItemDto.name}"></p>
         <select th:field="*{ItemDto.itemRole}">

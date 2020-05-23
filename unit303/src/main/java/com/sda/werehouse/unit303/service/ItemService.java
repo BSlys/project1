@@ -15,6 +15,15 @@ public class ItemService {
 
     private ModelMapper mapper;
     private ItemRepo itemRepo;
+    private String message = "oczekiwanie na instrukcje";
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public ItemService(ModelMapper mapper, ItemRepo itemRepo) {
         this.mapper = mapper;
@@ -22,7 +31,9 @@ public class ItemService {
     }
 
     public void addItemToRepo(ItemDto itemDto) {
+
         itemRepo.save(mapper.map(itemDto, Item.class));
+        message = "Dodano pozycję do spisu";
     }
 
     public List<ItemDto> getAllItems() {
@@ -32,11 +43,14 @@ public class ItemService {
         return items;
     }
 
-    public void deleteItemFromRepo(ItemDto itemDto) {
+    public String deleteItemFromRepo(ItemDto itemDto) {
         if(itemDto.itemRole.name().contains("SECURE")) {
             System.out.println("Próba usunięcia zabezpieczonego sprzętu");
+            message = "Próba usunięcia zabezpieczonego sprzętu";
         } else {
             itemRepo.deleteById(itemDto.getId());
+            message = "usunięto";
         }
+        return message;
     }
 }
