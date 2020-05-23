@@ -2,10 +2,8 @@ package com.sda.werehouse.unit303.model.entity;
 
 import com.sda.werehouse.unit303.model.Roles;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.persistence.Enumerated;
 
 @Entity
 public class User {
@@ -17,6 +15,7 @@ public class User {
     private String surname;
     private int age;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Roles roles;
 
     public String getSurname() {

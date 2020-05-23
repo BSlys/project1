@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${userListAndInput.userService.getAllUsers()}">
+            <tr th:each="user : ${userList}">
                 <form action="/deleteUser" method="post" th:object="${user}">
                     <td th:text="${user.getId()}"></td>
                     <td th:text="${user.getName()}"></td>
@@ -32,16 +32,15 @@
             </tr>
         </tbody>
     </table>
-    <form action="/adduser" method="post">
-        <p>Name:<input type="text" name="name" th:value="*{userListAndInput.userDto.name}"></p>
-        <p>Surname:<input type="text" name="surname" th:value="*{userListAndInput.userDto.surname}"></p>
-        <p>Age:<input type="number" name="age" th:value="*{userListAndInput.userDto.age}"></p>
-        <p>Password:<input type="text" name="password" th:value="*{userListAndInput.userDto.password}"></p>
-        <select field="*{userListAndInput.userDto.roles}">
+    <form action="/adduser" method="post" th:object="${userDto}">
+        <p>Name:<input type="text" name="name" th:value="*{name}"></p>
+        <p>Surname:<input type="text" name="surname" th:value="*{surname}"></p>
+        <p>Age:<input type="number" name="age" th:value="*{age}"></p>
+        <p>Password:<input type="text" name="password" th:value="*{password}"></p>
+        <select th:field="*{roles}">
             <option th:each="role : ${T(com.sda.werehouse.unit303.model.Roles).values()}"
             th:value="${role}"
             th:text="${role}">
-                <input type="hidden" th:value="${role}">
             </option>
         </select>
         <button type="submit">Dodaj użytkownika</button>

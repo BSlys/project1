@@ -39,7 +39,6 @@ public class UserService {
     public void addUserToRepo(UserDto userDto) {
         User user = mapper.map(userDto, User.class);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRoles(Roles.ROLE_USER);
 
         userRepo.save(user);
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
