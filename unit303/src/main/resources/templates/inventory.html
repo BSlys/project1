@@ -16,11 +16,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="item : ${ItemList.itemService.getAllItems()}">
+            <tr th:each="item : ${ItemList}">
                 <form action="/deleteItem" method="post">
                     <td th:text="${item.getId()}"></td>
                     <td th:text="${item.getName()}"></td>
-                    <td th:text="cos"></td>
+                    <td th:text="${item.getItemRole()}"></td>
                     <td th:text="cos"></td>
                     <td>
                         <input type="hidden" name="id" th:value="${item.getId()}">
@@ -31,7 +31,11 @@
         </tbody>
     </table>
     <form action="/addItem" method="post">
-        <p>Name<input type="text" name="name" th:value="*{ItemList.itemDto.name}"></p>
+        <p>Name<input type="text" name="name" th:value="*{ItemDto.name}"></p>
+        <select th:field="*{ItemDto.itemRole}">
+            <option th:each="role : ${T(com.sda.werehouse.unit303.model.ItemRole).values()}"
+                    th:text="${role}" th:value="${role}"></option>
+        </select>
         <button type="submit">Przeslij</button>
     </form>
     <form action="/index">

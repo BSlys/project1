@@ -1,34 +1,35 @@
 package com.sda.werehouse.unit303.controller;
 
-import com.sda.werehouse.unit303.model.ItemWrapper;
 import com.sda.werehouse.unit303.model.dto.ItemDto;
-import com.sda.werehouse.unit303.model.dto.UserDto;
+import com.sda.werehouse.unit303.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class inventoryController {
 
     @Autowired
-    public ItemWrapper itemWrapper;
+    public ItemService itemService;
 
     @GetMapping("/inventory")
-    public ModelAndView inventory() {
-        return new ModelAndView("inventory", "ItemList", itemWrapper);
+    public String inventory(Model model) {
+        model.addAttribute("ItemList", itemService.getAllItems());
+        model.addAttribute("ItemDto", new ItemDto());
+        return "/inventory";
     }
 
     @PostMapping("/addItem")
     public String addItem(ItemDto itemDto) {
-        itemWrapper.itemService.addItemToRepo(itemDto);
+        itemService.addItemToRepo(itemDto);
         return "redirect:/inventory";
     }
 
     @PostMapping("/deleteItem")
     public String deleteItemFromRepo(ItemDto itemDto) {
-        itemWrapper.itemService.deleteItemFromRepo(itemDto);
+        itemService.deleteItemFromRepo(itemDto);
         return "redirect:/inventory";
     }
 }

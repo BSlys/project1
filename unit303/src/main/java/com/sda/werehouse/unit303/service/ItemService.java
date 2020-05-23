@@ -33,6 +33,10 @@ public class ItemService {
     }
 
     public void deleteItemFromRepo(ItemDto itemDto) {
-        itemRepo.deleteById(itemDto.getId());
+        if(itemDto.itemRole.name().contains("SECURE")) {
+            System.out.println("Próba usunięcia zabezpieczonego sprzętu");
+        } else {
+            itemRepo.deleteById(itemDto.getId());
+        }
     }
 }

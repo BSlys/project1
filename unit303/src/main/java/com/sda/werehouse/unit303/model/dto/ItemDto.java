@@ -1,9 +1,20 @@
 package com.sda.werehouse.unit303.model.dto;
 
+import com.sda.werehouse.unit303.model.ItemRole;
+
 public class ItemDto {
 
     public Long id;
     public String name;
+    public ItemRole itemRole;
+
+    public ItemRole getItemRole() {
+        return itemRole;
+    }
+
+    public void setItemRole(ItemRole itemRole) {
+        this.itemRole = itemRole;
+    }
 
     public Long getId() {
         return id;

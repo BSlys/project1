@@ -1,9 +1,8 @@
 package com.sda.werehouse.unit303.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.sda.werehouse.unit303.model.ItemRole;
+
+import javax.persistence.*;
 
 @Entity
 public class Item {
@@ -12,6 +11,16 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Enumerated(EnumType.STRING)
+    private ItemRole itemRole;
+
+    public ItemRole getItemRole() {
+        return itemRole;
+    }
+
+    public void setItemRole(ItemRole itemRole) {
+        this.itemRole = itemRole;
+    }
 
     public Long getId() {
         return id;
