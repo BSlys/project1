@@ -10,6 +10,25 @@ public class UserDto {
     public int age;
     public String password;
     public Roles roles;
+    public String message;
+    public String pMessanger;
+
+    public String getpMessanger() {
+        return pMessanger;
+    }
+
+    public void setpMessanger(String pMessanger, String sender) {
+        this.pMessanger = sender;
+        this.pMessanger = pMessanger;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Roles getRoles() {
         return roles;

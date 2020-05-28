@@ -20,7 +20,7 @@ public class inventoryController {
         model.addAttribute("ItemDto", new ItemDto());
         model.addAttribute("Message", itemService.getMessage());
         itemService.setMessage("oczekiwanie na instrukcje");
-        return "/inventory";
+        return "inventory";
     }
 
     @PostMapping("/addItem")

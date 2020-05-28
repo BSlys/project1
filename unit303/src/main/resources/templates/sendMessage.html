@@ -5,8 +5,10 @@
     <title>Wyślij wiadomość</title>
 </head>
 <body>
-    <form action="/sendMessage" method="post">
-        <input type="text">
+    <form action="/sendMessage" method="post" th:object="${message1}">
+        <input type="hidden" name="reciver" th:value="*{reciver}">
+        <input type="text" name="message" th:value="*{message}">
+        <input type="hidden" name="sender" th:value="*{sender}">
         <button type="submit">Wyślij</button>
     </form>
 

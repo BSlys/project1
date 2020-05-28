@@ -48,4 +48,8 @@ public class UserService {
     public void deleteUserFromRepo(UserDto userDto) {
         userRepo.deleteById(userDto.id);
     }
+
+    public void setMessageById(Long id, String text) {
+
+    }
 }

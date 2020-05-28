@@ -24,7 +24,8 @@ public class User {
         return personalMessege;
     }
 
-    public void setPersonalMessege(String personalMessege) {
+    public void setPersonalMessege(String personalMessege, String sender) {
+        this.pMessenger = sender;
         this.personalMessege = personalMessege;
     }
 

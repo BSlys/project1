@@ -7,6 +7,16 @@
 <body>
     <h1>Witaj</h1>
     <h1 th:text="${authMessage}"></h1>
+    <h1>Moje wiadomości</h1>
+    <tr th:each="text : ${MyMessages}">
+        <form action="/markAsRead" method="post">
+            <td th:text="${text.sender}"></td>
+            <td th:text="${text.message}"></td>
+            <td>
+                <button type="submit"></button>
+            </td>
+        </form>
+    </tr>
     <form action="/adduser">
         <button type="submit">Użytkownicy</button>
     </form>

@@ -25,13 +25,7 @@ public class UserController {
         return "adduser";
     }
 
-    @GetMapping("/sendMessage")
-    public String sendMessageTo(@ModelAttribute("userDto") UserDto userDto, Model model) {
-        model.addAttribute("reciver", userDto);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("sender", authentication.getName());
-        return "sendMessage";
-    }
+
 
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute("userDto") UserDto userDto) {
