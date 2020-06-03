@@ -18,13 +18,13 @@
         <td th:text="${item.getName()}"></td>
         <td th:text="${item.getItemRole()}"></td>
         <form action="/myOrder" method="post" th:object="${postorder}">
-
-
+            <input type="hidden" name="userId" th:value="${orderforme.getUserId()}">
+            <input type="hidden" name="itemId" th:value="${item.getId()}">
             <td>
-                <input type="number" name="itemId" th:value="*{ItemId}">
+                <input type="number" name="quantity" th:value="*{quantity}">
             </td>
             <td>
-                <button type="submit">Wyslij</button>
+                <button type="submit">Zamów</button>
             </td>
         </form>
     </tr>

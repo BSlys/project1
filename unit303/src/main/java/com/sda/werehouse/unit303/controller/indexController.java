@@ -1,6 +1,7 @@
 package com.sda.werehouse.unit303.controller;
 
 
+import com.sda.werehouse.unit303.configuration.AuthenticationMenagement;
 import com.sda.werehouse.unit303.model.dto.MessageDto;
 import com.sda.werehouse.unit303.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,14 @@ public class indexController {
     @Autowired
     public MessageService messageService;
 
-    public Authentication authentication;
+    @Autowired
+    public AuthenticationMenagement authenticationMenagement;
 
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
-        authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authMessage = authentication.getName() + authentication.getAuthorities();
+        String authMessage = authenticationMenagement.getAuthority().getAuthentication().getName()
+                + authenticationMenagement.getAuthority().getAuthentication().getAuthorities();
         model.addAttribute("authMessage", authMessage);
         List<MessageDto> myMessages = messageService.seeMessagesForMe(false);
         model.addAttribute("MyMessages", myMessages);

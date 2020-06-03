@@ -17,5 +17,6 @@ public class SpringConfig {
     @Bean
     public ModelMapper modelMapper() { return new ModelMapper(); }
 
-    
+    @Bean
+    public AuthenticationMenagement authenticationMenagement() {return new AuthenticationMenagement();};
 }

@@ -1,5 +1,6 @@
 package com.sda.werehouse.unit303.controller;
 
+import com.sda.werehouse.unit303.configuration.AuthenticationMenagement;
 import com.sda.werehouse.unit303.model.dto.MessageDto;
 import com.sda.werehouse.unit303.model.dto.UserDto;
 import com.sda.werehouse.unit303.repositories.UserRepo;
@@ -24,12 +25,13 @@ public class SendMessageController {
     private UserService userService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    public AuthenticationMenagement authenticationMenagement;
 
     @GetMapping("/sendMessage")
     public String sendMessageTo(UserDto userDto, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         MessageDto messageDto = new MessageDto();
-        messageDto.sender = authentication.getName();
+        messageDto.sender = authenticationMenagement.getAuthority().getAuthentication().getName();
         messageDto.reciver = userDto.id;
         messageDto.message="witaj";
         model.addAttribute("message1", messageDto);

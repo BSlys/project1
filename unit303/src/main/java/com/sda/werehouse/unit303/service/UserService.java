@@ -41,8 +41,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         userRepo.save(user);
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getName() + authentication.getAuthorities());
     }
 
     public void deleteUserFromRepo(UserDto userDto) {
