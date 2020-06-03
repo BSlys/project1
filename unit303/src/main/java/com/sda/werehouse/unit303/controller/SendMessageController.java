@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class SendMessageController {
     public String m1 = "witaj";
@@ -36,14 +38,14 @@ public class SendMessageController {
 
     @PostMapping("/sendMessage")
     public String sendThis(MessageDto message1) {
-        userService.setMessageById(message1.reciver, message1.message);
+        message1.setDate(LocalDateTime.now());
         messageService.addMessage(message1);
         return "redirect:/adduser";
     }
 
     @PostMapping("/markAsRead")
-    public String readMessage() {
-
+    public String readMessage(MessageDto messageDto) {
+        messageService.markAsRead(messageDto);
         return "redirect:/index";
     }
 }

@@ -12,14 +12,23 @@ public class Item {
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private ItemRole itemRole;
+    private ItemRole itemrole;
+    private int quantity = 1;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public ItemRole getItemRole() {
-        return itemRole;
+        return itemrole;
     }
 
     public void setItemRole(ItemRole itemRole) {
-        this.itemRole = itemRole;
+        this.itemrole = itemRole;
     }
 
     public Long getId() {

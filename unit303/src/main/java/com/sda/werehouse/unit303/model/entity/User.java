@@ -17,25 +17,7 @@ public class User {
     private String password;
     @Enumerated(EnumType.STRING)
     private Roles roles;
-    private String personalMessege;
-    private String pMessenger;
 
-    public String getPersonalMessege() {
-        return personalMessege;
-    }
-
-    public void setPersonalMessege(String personalMessege, String sender) {
-        this.pMessenger = sender;
-        this.personalMessege = personalMessege;
-    }
-
-    public String getpMessenger() {
-        return pMessenger;
-    }
-
-    public void setpMessenger(String pMessenger) {
-        this.pMessenger = pMessenger;
-    }
 
     public String getSurname() {
         return surname;

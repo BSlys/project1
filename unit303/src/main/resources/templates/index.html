@@ -11,9 +11,11 @@
     <tr th:each="text : ${MyMessages}">
         <form action="/markAsRead" method="post">
             <td th:text="${text.sender}"></td>
+            <td th:text="${text.date}"></td>
             <td th:text="${text.message}"></td>
             <td>
-                <button type="submit"></button>
+                <input type="hidden" name="id" th:value="${text.getId()}">
+                <button type="submit">Oznacz jako przeczytane</button>
             </td>
         </form>
     </tr>
@@ -22,6 +24,9 @@
     </form>
     <form action="/inventory">
         <button type="submit">Wyposażenie</button>
+    </form>
+    <form action="/myOrder">
+        <button type="submit">Zamówienia</button>
     </form>
     <form action="/logout">
         <button type="submit">Wyloguj</button>

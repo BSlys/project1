@@ -18,13 +18,15 @@ public class indexController {
     @Autowired
     public MessageService messageService;
 
+    public Authentication authentication;
+
 
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication = SecurityContextHolder.getContext().getAuthentication();
         String authMessage = authentication.getName() + authentication.getAuthorities();
         model.addAttribute("authMessage", authMessage);
-        List<MessageDto> myMessages = messageService.seeMessagesForMe();
+        List<MessageDto> myMessages = messageService.seeMessagesForMe(false);
         model.addAttribute("MyMessages", myMessages);
         return "index";
     }

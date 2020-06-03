@@ -7,6 +7,15 @@ public class ItemDto {
     public Long id;
     public String name;
     public ItemRole itemRole;
+    public int amount;
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public ItemRole getItemRole() {
         return itemRole;

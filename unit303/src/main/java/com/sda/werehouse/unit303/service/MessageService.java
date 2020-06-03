@@ -29,7 +29,7 @@ public class MessageService {
         messageRepo.save(messageDto);
     }
 
-    public List<MessageDto> seeMessagesForMe() {
+    public List<MessageDto> seeMessagesForMe(boolean seeAll) {
         String me = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<UserDto> optionalUserDto = userService.getAllUsers().stream().filter(userDto1 -> userDto1.name == me).findAny();
         if(optionalUserDto.isPresent()) {
@@ -37,13 +37,20 @@ public class MessageService {
         } else {
             authId = 0L;
         }
-        messageRepo.findAll();
-        List<MessageDto> messageDtoList = messageRepo.findAll().stream()
-                .filter(messageDto -> messageDto.reciver == authId).collect(Collectors.toList());
+        List<MessageDto> messageDtoList;
+        if(!seeAll) {
+            messageDtoList = messageRepo.findAll().stream()
+                    .filter(messageDto -> messageDto.reciver == authId).filter(messageDto -> messageDto.isRead() == seeAll)
+                    .collect(Collectors.toList());
+        } else {
+            messageDtoList = messageRepo.findAll();
+        }
         return messageDtoList;
     }
 
     public void markAsRead(MessageDto messageDto) {
-
+        MessageDto messageDto1 = messageRepo.getOne(messageDto.getId());
+        messageDto1.setRead(true);
+        messageRepo.save(messageDto1);
     }
 }

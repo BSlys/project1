@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Moje zamówienie</title>
+</head>
+<body>
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>name</td>
+        <td>role</td>
+        <td>amount</td>
+        <td>action</td>
+    </tr>
+    <tr th:each="item : ${itemList}">
+        <td th:text="${item.getId()}"></td>
+        <td th:text="${item.getName()}"></td>
+        <td th:text="${item.getItemRole()}"></td>
+        <form action="/myOrder" method="post" th:object="${postorder}">
+
+
+            <td>
+                <input type="number" name="itemId" th:value="*{ItemId}">
+            </td>
+            <td>
+                <button type="submit">Wyslij</button>
+            </td>
+        </form>
+    </tr>
+</table>
+<form action="/index">
+    <button type="submit">Powrót</button>
+</form>
+</body>
+</html>
