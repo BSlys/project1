@@ -13,7 +13,7 @@ public class Item {
     private String name;
     @Enumerated(EnumType.STRING)
     private ItemRole itemrole;
-    private int quantity = 1;
+    private int quantity;
 
     public int getQuantity() {
         return quantity;

@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,21 +38,23 @@ public class ItemService {
         message = "Dodano pozycję do spisu";
     }
 
-    public List<ItemDto> getAllItems() {
-        //System.out.println("Wypisz listę wyposażenia");
+    public Map<Long, ItemDto> getAllItems() {
         List<ItemDto> items = itemRepo.findAll().stream()
                 .map(item -> mapper.map(item, ItemDto.class)).collect(Collectors.toList());
-        return items;
+        Map<Long, ItemDto> itemMap = new HashMap<>();
+        items.forEach(itemDto -> itemMap.put(itemDto.id, itemDto));
+        return itemMap;
     }
 
-    public String deleteItemFromRepo(ItemDto itemDto) {
+    public boolean deleteItemFromRepo(ItemDto itemDto) {
         if(itemDto.itemRole.name().contains("SECURE")) {
             System.out.println("Próba usunięcia zabezpieczonego sprzętu");
             message = "Próba usunięcia zabezpieczonego sprzętu";
         } else {
             itemRepo.deleteById(itemDto.getId());
             message = "usunięto";
+            return true;
         }
-        return message;
+        return false;
     }
 }

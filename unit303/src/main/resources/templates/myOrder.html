@@ -5,6 +5,7 @@
     <title>Moje zamówienie</title>
 </head>
 <body>
+<h1>Możliwe do zamówienia</h1>
 <table class="table">
     <tr>
         <td>Id</td>
@@ -13,7 +14,7 @@
         <td>amount</td>
         <td>action</td>
     </tr>
-    <tr th:each="item : ${itemList}">
+    <tr th:each="item : ${itemList.values()}">
         <td th:text="${item.getId()}"></td>
         <td th:text="${item.getName()}"></td>
         <td th:text="${item.getItemRole()}"></td>
@@ -27,6 +28,45 @@
                 <button type="submit">Zamów</button>
             </td>
         </form>
+    </tr>
+</table>
+<h1>Moje zamówienia</h1>
+<table class="table">
+    <tr>
+        <td>ItemId</td>
+        <td>Nazwa przedmiotu</td>
+        <td>Ilość</td>
+        <td>Zrealizowano</td>
+        <td>Akcje</td>
+    </tr>
+    <tr th:each="position : ${orderforme.getOrderList()}">
+        <td th:text="${position.getKey()}"></td>
+        <td th:text="${itemList.get(position.getKey()).getName()}"></td>
+        <td th:text="${position.getValue()}"></td>
+        <td>NIE</td>
+        <td>
+            <form action="/deleteOrder" method="post" th:object="${postorder}">
+                <input type="hidden" name="userId" th:value="${orderforme.getUserId()}">
+                <input type="hidden" name="itemId" th:value="${position.getKey()}">
+                <button type="submit">Usuń</button>
+            </form>
+        </td>
+
+    </tr>
+    <tr th:each="position2 : ${acceptedorders.getOrderList()}">
+        <td th:text="${position2.getKey()}"></td>
+        <td th:text="${itemList.get(position2.getKey()).getName()}"></td>
+        <td th:text="${position2.getValue()}"></td>
+        <td>TAK</td>
+        <td>
+            <form action="/returnOrder" method="post" th:object="${postorder}">
+                <input type="hidden" name="userId" th:value="${orderforme.getUserId()}">
+                <input type="hidden" name="itemId" th:value="${position2.getKey()}">
+                <input type="hidden" name="quantity" th:value="${position2.getValue()}">
+                <button type="submit">Zwróć</button>
+            </form>
+        </td>
+
     </tr>
 </table>
 <form action="/index">

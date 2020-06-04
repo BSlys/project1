@@ -7,14 +7,14 @@ public class ItemDto {
     public Long id;
     public String name;
     public ItemRole itemRole;
-    public int amount;
+    public int quantity;
 
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public ItemRole getItemRole() {

@@ -29,10 +29,11 @@
                         <button class="btn btn-warning" value="remove">Usuń</button>
                     </td>
                 </form>
+                <td>
                 <form action="/sendMessage" th:object="${user}">
                     <input type="hidden" name="id" th:value="${user.id}">
                     <button type="submit">Wyślij wiadomość</button>
-                </form>
+                </form></td>
             </tr>
         </tbody>
     </table>

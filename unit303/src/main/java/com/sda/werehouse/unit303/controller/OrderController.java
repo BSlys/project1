@@ -21,14 +21,19 @@ public class OrderController {
     public AuthenticationMenagement authenticationMenagement;
     @Autowired
     public ItemService itemService;
-    public OrderDto orderDto;
+    public OrderDto orderDtoPending;
+    public OrderDto orderDtoAccepted;
 
     @GetMapping("/myOrder")
     public String getOrderByUser(Model model) {
-        orderDto = new OrderDto();
-        orderDto.setUserId(authenticationMenagement.getAuthority().getMyId());
-        orderDto.setOrderList(orderService.orderByUser(orderDto.getUserId()));
-        model.addAttribute("orderforme", orderDto);
+        orderDtoPending = new OrderDto();
+        orderDtoAccepted = new OrderDto();
+        orderDtoPending.setUserId(authenticationMenagement.getAuthority().getMyId());
+        orderDtoAccepted.setUserId(authenticationMenagement.getAuthority().getMyId());
+        orderDtoPending.setOrderList(orderService.orderByUser(orderDtoPending.getUserId(), false));
+        orderDtoAccepted.setOrderList(orderService.orderByUser(orderDtoAccepted.getUserId(), true));
+        model.addAttribute("orderforme", orderDtoPending);
+        model.addAttribute("acceptedorders", orderDtoAccepted);
         model.addAttribute("itemList", itemService.getAllItems());
         model.addAttribute("postorder", new OrderEnt());
         return "/myOrder";
@@ -45,4 +50,33 @@ public class OrderController {
         orderService.orderRepo.save(orderEnt);
         return "redirect:/myOrder";
     }
+
+    @PostMapping("/deleteOrder")
+    public String deleteOrder(OrderEnt orderEnt) {
+        Optional<OrderEnt> orderEntOptional = orderService.orderRepo.findAll()
+                .stream().filter(orderEnt1 -> orderEnt1.getUserId().equals(orderEnt.getUserId()))
+                .filter(orderEnt1 -> orderEnt1.getItemId().equals(orderEnt.getItemId())).findAny();
+        if (orderEntOptional.isPresent()) {
+            orderEnt.setId(orderEntOptional.get().getId());
+            orderService.orderRepo.delete(orderEnt);
+        }
+        return "redirect:/myOrder";
+    }
+
+    @PostMapping("/returnOrder")
+    public String returnOrder(OrderEnt orderEnt) {
+        Optional<OrderEnt> orderEntOptional = orderService.orderRepo.findAll()
+                .stream().filter(orderEnt1 -> orderEnt1.getUserId().equals(orderEnt.getUserId()))
+                .filter(orderEnt1 -> orderEnt1.getItemId().equals(orderEnt.getItemId())).findAny();
+        if (orderEntOptional.isPresent()) {
+            orderEnt.setId(orderEntOptional.get().getId());
+            orderEnt.setAccepted(false);
+            orderService.orderRepo.save(orderEnt);
+        }
+        return "redirect:/myOrder";
+    }
+
+
+
+
 }
