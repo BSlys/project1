@@ -26,7 +26,7 @@ public class AuthenticationMenagement {
 
         authentication = SecurityContextHolder.getContext().getAuthentication();
         String me = authentication.getName();
-        Optional<UserDto> optionalUserDto = userService.getAllUsers()
+        Optional<UserDto> optionalUserDto = userService.getAllUsers().values()
                 .stream().filter(userDto1 -> userDto1.name == me).findAny();
         if(optionalUserDto.isPresent()) {
             myId = optionalUserDto.get().id;

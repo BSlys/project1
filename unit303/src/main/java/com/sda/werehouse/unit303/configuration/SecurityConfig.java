@@ -19,21 +19,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
-                .antMatchers("/index/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
-                .antMatchers("/adduser/").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+                .antMatchers("/").hasAnyAuthority("ROLE_KEEPER", "ROLE_PRIVATE", "ROLE_GENERAL")
+                .antMatchers("/index/**").hasAnyAuthority("ROLE_KEEPER", "ROLE_PRIVATE", "ROLE_GENERAL")
+                .antMatchers("/adduser").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL", "ROLE_PRIVATE")
+                .antMatchers("/adduser").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL", "ROLE_PRIVATE")
+                .antMatchers("/deleteUser").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL")
+                .antMatchers("/myOrder").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL", "ROLE_PRIVATE")
+                .antMatchers("/inventory").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL")
+                .antMatchers("/deleteUser").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL")
+                .antMatchers("/deleteItem").hasAnyAuthority("ROLE_KEEPER")
+                .antMatchers("/addItem").hasAnyAuthority("ROLE_KEEPER")
+                .antMatchers("/acceptOrder").hasAnyAuthority("ROLE_KEEPER")
+                .antMatchers("/deleteOrderI").hasAnyAuthority("ROLE_KEEPER")
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable()
                 .headers().frameOptions().disable()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/fallback?message=BrakUprawnien")
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .loginProcessingUrl("/login-process")
-                .failureUrl("/login?error")
-                .defaultSuccessUrl("/login")
+                .failureUrl("/fallback?message=BladLogowania")
+                .defaultSuccessUrl("/index")
                 .and()
                 .logout().logoutSuccessUrl("/login");
     }
@@ -45,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user").password(passwordEncoder.encode("password"))
                 .roles("USER")
                 .and().withUser("superuser").password(passwordEncoder.encode("password"))
-                .roles("USER", "ADMIN");
+                .roles("ADMIN", "KEEPER");
 
 
         auth.jdbcAuthentication().usersByUsernameQuery("SELECT u.name, u.password, 1 FROM user u WHERE u.name=?")

@@ -1,6 +1,8 @@
 package com.sda.werehouse.unit303.controller;
 
 import com.sda.werehouse.unit303.model.dto.UserDto;
+import com.sda.werehouse.unit303.service.MessageService;
+import com.sda.werehouse.unit303.service.OrderService;
 import com.sda.werehouse.unit303.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,6 +19,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private MessageService messageService;
 
     @GetMapping("/adduser")
     public String users(Model model) {
@@ -35,7 +41,14 @@ public class UserController {
 
     @PostMapping("/deleteUser")
     public String deleteUser(UserDto userDto) {
-        userService.deleteUserFromRepo(userDto);
+        if (orderService.deleteOrderForUser(userDto)) {
+            messageService.deleteMessagesFor(userDto.getId());
+            userService.deleteUserFromRepo(userDto);
+        } else {
+            String message = "Uzytkownik ma wydane zamowienia";
+            return "redirect:/fallback?message=" + message;
+        }
+
         return "redirect:/adduser";
     }
 

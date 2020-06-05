@@ -3,19 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Zamówienia na sprzęt</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<table class="table">
+<tr>
+    <h1>
+        <td>Zamówienia na: </td>
+        <td th:text="${name}"></td>
+    </h1>
+</tr>
+<tr>
+    <h2>
+        <td>Całkowita liczba egzemplarzy: </td>
+        <td th:text="${amount}"></td>
+        <td>Wypożyczono: </td>
+        <td th:text="${rented}"></td>
+        <td>Dostępne: </td>
+        <td th:text="${amount - rented}"></td>
+    </h2>
+</tr>
+<h3>Zamówienia oczekujące:</h3>
+<table class="thick">
     <tr>
         <td>UserID</td>
         <td>Nazwa użytkownika</td>
         <td>Ilość</td>
         <td>Wydano</td>
     </tr>
-
+    <tr th:each="order : ${ordersForThisF.values()}">
+        <td th:text="${order.getUserId()}"></td>
+        <td th:text="${userMap.get(order.getUserId()).getName()}"></td>
+        <td th:text="${order.getQuantity()}"></td>
+        <td th:text="${order.isAccepted()}"></td>
+        <td>
+            <form action="/deleteOrderI" method="post" th:object="${order}">
+                <input type="hidden" name="id" th:value="${order.getId()}">
+                <button type="submit">Usuń</button>
+            </form>
+        </td>
+        <td>
+            <form action="/acceptOrder" method="post" th:object="${order}">
+                <input type="hidden" name="id" th:value="${order.getId()}">
+                <button type="submit">Zrealizuj</button>
+            </form>
+        </td>
+    </tr>
 </table>
+<h3>Zamówienia zrealizowane</h3>
+<table class="thick">
+    <tr>
+        <td>UserID</td>
+        <td>Nazwa użytkownika</td>
+        <td>Ilość</td>
+        <td>Wydano</td>
+    </tr>
+    <tr th:each="order : ${ordersForThisT.values()}">
+        <td th:text="${order.getUserId()}"></td>
+        <td th:text="${userMap.get(order.getUserId()).getName()}"></td>
+        <td th:text="${order.getQuantity()}"></td>
+        <td th:text="${order.isAccepted()}"></td>
+        <td>
 
-<form action="/index">
+        </td>
+    </tr>
+</table>
+<form action="/inventory">
     <button type="submit">Powrót</button>
 </form>
 </body>

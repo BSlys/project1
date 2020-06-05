@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Strona główna</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>Witaj</h1>
-    <h1 th:text="${authMessage}"></h1>
-    <h1>Moje wiadomości</h1>
+<h1>Witaj</h1>
+<h1 th:text="${authMessage}"></h1>
+<h1>Moje wiadomości</h1>
+<table class="thick">
     <tr th:each="text : ${MyMessages}">
         <form action="/markAsRead" method="post">
             <td th:text="${text.sender}"></td>
@@ -19,17 +21,19 @@
             </td>
         </form>
     </tr>
-    <form action="/adduser">
-        <button type="submit">Użytkownicy</button>
-    </form>
-    <form action="/inventory">
-        <button type="submit">Magazyn</button>
-    </form>
-    <form action="/myOrder">
-        <button type="submit">Zamówienia</button>
-    </form>
-    <form action="/logout">
-        <button type="submit">Wyloguj</button>
-    </form>
+</table>
+<tr><form action="/adduser">
+    <button type="submit">Użytkownicy</button>
+</form></tr>
+<tr><form action="/inventory">
+    <button type="submit">Magazyn</button>
+</form></tr>
+<tr><form action="/myOrder">
+    <button type="submit">Zamówienia</button>
+</form></tr>
+<tr><form action="/logout">
+    <button type="submit" id="submitbtn">Wyloguj</button>
+</form></tr>
+
 </body>
 </html>

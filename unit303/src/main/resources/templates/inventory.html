@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Magazyn</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <h1>
     Dostępne pozycje
 </h1>
-<table class="table">
+<table class="thick">
     <thead class="theme.dark">
     <tr>
         <td>Id</td>
@@ -33,9 +34,10 @@
             </form>
         </td>
         <td>
-            <form action="/seeOrders" method="post" th:object="${item}">
+            <form action="/seeOrders" th:object="${item}">
                 <input type="hidden" name="id" th:value="${item.getId()}">
-                <input type="hidden" name="itemRole" th:value="${item.getItemRole()}">
+                <input type="hidden" name="quantity" th:value="${item.getQuantity()}">
+                <input type="hidden" name="name" th:value="${item.getName()}">
                 <button class="btn btn-warning" type="remove">Zobacz zamówienia</button>
             </form>
         </td>

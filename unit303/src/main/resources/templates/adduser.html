@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Dodaj uzytkownika</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <table class="table">
+    <table class="thick">
         <thead class="theme.dark">
             <tr>
                 <th>Id</th>
@@ -17,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${userList}">
+            <tr th:each="user : ${userList.values()}">
                 <form action="/deleteUser" method="post" th:object="${user}">
                     <td th:text="${user.getId()}"></td>
                     <td th:text="${user.getName()}"></td>

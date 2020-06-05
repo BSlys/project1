@@ -29,9 +29,16 @@ public class MessageService {
         messageRepo.save(messageDto);
     }
 
+    public void deleteMessagesFor(Long userId) {
+        List<MessageDto> messageDtos = messageRepo.findAll().stream()
+                .filter(messageDto -> messageDto.reciver.equals(userId)).collect(Collectors.toList());
+        messageDtos.forEach(messageDto -> messageRepo.delete(messageDto));
+    }
+
     public List<MessageDto> seeMessagesForMe(boolean seeAll) {
         String me = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<UserDto> optionalUserDto = userService.getAllUsers().stream().filter(userDto1 -> userDto1.name == me).findAny();
+        Optional<UserDto> optionalUserDto = userService.getAllUsers().values().stream()
+                .filter(userDto1 -> userDto1.name == me).findAny();
         if(optionalUserDto.isPresent()) {
             authId = optionalUserDto.get().id;
         } else {

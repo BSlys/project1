@@ -12,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,11 +31,12 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public List<UserDto> getAllUsers() {
+    public Map<Long, UserDto> getAllUsers() {
         List<UserDto> userDtoList = userRepo.findAll().stream()
                 .map(u -> mapper.map(u, UserDto.class)).collect(Collectors.toList());
-
-        return userDtoList;
+        Map<Long, UserDto> userMap = new HashMap<>();
+        userDtoList.stream().forEach(userDto -> userMap.put(userDto.getId(), userDto));
+        return userMap;
     }
 
     public void addUserToRepo(UserDto userDto) {

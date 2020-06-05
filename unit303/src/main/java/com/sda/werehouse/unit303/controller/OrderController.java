@@ -1,6 +1,7 @@
 package com.sda.werehouse.unit303.controller;
 
 import com.sda.werehouse.unit303.configuration.AuthenticationMenagement;
+import com.sda.werehouse.unit303.model.dto.ItemDto;
 import com.sda.werehouse.unit303.model.dto.OrderDto;
 import com.sda.werehouse.unit303.model.entity.OrderEnt;
 import com.sda.werehouse.unit303.service.ItemService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
@@ -41,21 +43,25 @@ public class OrderController {
 
     @PostMapping("/myOrder")
     public String postOrder(OrderEnt orderEnt) {
+        /*
         Optional<OrderEnt> orderEntOptional = orderService.orderRepo.findAll()
                 .stream().filter(orderEnt1 -> orderEnt1.getUserId().equals(orderEnt.getUserId()))
-                .filter(orderEnt1 -> orderEnt1.getItemId().equals(orderEnt.getItemId())).findAny();
+                .filter(orderEnt1 -> orderEnt1.getItemId().equals(orderEnt.getItemId()))
+                .filter(orderEnt1 -> !orderEnt1.isAccepted()).findAny();
         if (orderEntOptional.isPresent()) {
             orderEnt.setId(orderEntOptional.get().getId());
         }
+        */
         orderService.orderRepo.save(orderEnt);
         return "redirect:/myOrder";
     }
 
     @PostMapping("/deleteOrder")
     public String deleteOrder(OrderEnt orderEnt) {
+        OrderEnt finalOrderEnt = orderEnt;
         Optional<OrderEnt> orderEntOptional = orderService.orderRepo.findAll()
-                .stream().filter(orderEnt1 -> orderEnt1.getUserId().equals(orderEnt.getUserId()))
-                .filter(orderEnt1 -> orderEnt1.getItemId().equals(orderEnt.getItemId())).findAny();
+                .stream().filter(orderEnt1 -> orderEnt1.getId().equals(finalOrderEnt.getId()))
+                .findAny();
         if (orderEntOptional.isPresent()) {
             orderEnt.setId(orderEntOptional.get().getId());
             orderService.orderRepo.delete(orderEnt);
@@ -63,13 +69,16 @@ public class OrderController {
         return "redirect:/myOrder";
     }
 
+
+
     @PostMapping("/returnOrder")
     public String returnOrder(OrderEnt orderEnt) {
+        OrderEnt finalOrderEnt = orderEnt;
         Optional<OrderEnt> orderEntOptional = orderService.orderRepo.findAll()
-                .stream().filter(orderEnt1 -> orderEnt1.getUserId().equals(orderEnt.getUserId()))
-                .filter(orderEnt1 -> orderEnt1.getItemId().equals(orderEnt.getItemId())).findAny();
+                .stream().filter(orderEnt1 -> orderEnt1.getId().equals(finalOrderEnt.getId()))
+                .findAny();
         if (orderEntOptional.isPresent()) {
-            orderEnt.setId(orderEntOptional.get().getId());
+            orderEnt = orderEntOptional.get();
             orderEnt.setAccepted(false);
             orderService.orderRepo.save(orderEnt);
         }

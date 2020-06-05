@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,8 +34,16 @@ public class ItemService {
     }
 
     public void addItemToRepo(ItemDto itemDto) {
-
-        itemRepo.save(mapper.map(itemDto, Item.class));
+        Optional<Item> optionalItem = itemRepo.findAll().stream()
+                .filter(item -> item.getName().equals(itemDto.getName()))
+                .filter(item -> item.getItemRole().equals(itemDto.itemRole)).findAny();
+        if (optionalItem.isPresent()) {
+            Item it = optionalItem.get();
+            it.setQuantity(it.getQuantity() + itemDto.getQuantity());
+            itemRepo.save(it);
+        } else {
+            itemRepo.save(mapper.map(itemDto, Item.class));
+        }
         message = "Dodano pozycję do spisu";
     }
 
@@ -56,5 +65,13 @@ public class ItemService {
             return true;
         }
         return false;
+    }
+
+    public boolean isEnought(Long itemID, Long amount) {
+        if (itemRepo.findById(itemID).get().getQuantity() > amount) {
+            return true;
+        }
+        return false;
+
     }
 }

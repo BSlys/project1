@@ -1,0 +1,119 @@
+@import url(https://fonts.googleapis.com/css?family=Fredoka+One);
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 15px;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    outline: none;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html { overflow-y: scroll; }
+body {
+    font-size: 62.5%;
+    line-height: 1;
+    color: #414141;
+    background: #caccf7 url('https://i.imgur.com/Syv2IVk.png'); /* https://subtlepatterns.com/old-map/ */
+    padding: 25px 0;
+}
+
+table, tr, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th, tr {
+    text-align: center;
+    vertical-align: center;
+}
+
+tr:hover {
+    background-color: aqua;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 50%;
+}
+img { border: 0; max-width: 100%; }
+
+h1 {
+    color: black;
+    font-size: 3.5em;
+    line-height: 1.1em;
+    padding: 6px 0;
+    font-weight: normal;
+    text-align: left;
+}
+h2 {
+    color: black;
+    font-size: 2.5em;
+    line-height: 1.1em;
+    padding: 6px 0;
+    font-weight: normal;
+    text-align: left;
+}
+h3 {
+    color: black;
+    font-size: 2em;
+    line-height: 1.1em;
+    padding: 6px 0;
+    font-weight: normal;
+    text-align: left;
+}
+
+.thick {
+    color: #272727;
+    font-size: 1.7em;
+    font-weight: bold;
+    padding: 0;
+}
+
+/* https://codepen.io/guvootes/pen/eyDAb */
+#submitbtn {
+    width: 150px;
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+    letter-spacing: 0.05em;
+    font-family: Arial, Tahoma, sans-serif;
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+    overflow: hidden;
+    border-bottom: 1px solid #0071ff;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #66aaff), color-stop(100%, #4d9cff));
+    background-image: -webkit-linear-gradient(#66aaff, #4d9cff);
+    background-image: -moz-linear-gradient(#66aaff, #4d9cff);
+    background-image: -o-linear-gradient(#66aaff, #4d9cff);
+    background-image: linear-gradient(#66aaff, #4d9cff);
+}
+#submitbtn:hover {
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4d9cff), color-stop(100%, #338eff));
+    background-image: -webkit-linear-gradient(#4d9cff, #338eff);
+    background-image: -moz-linear-gradient(#4d9cff, #338eff);
+    background-image: -o-linear-gradient(#4d9cff, #338eff);
+    background-image: linear-gradient(#4d9cff, #338eff);
+}
+#submitbtn:active {
+    border-bottom: 0;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #338eff), color-stop(100%, #4d9cff));
+    background-image: -webkit-linear-gradient(#338eff, #4d9cff);
+    background-image: -moz-linear-gradient(#338eff, #4d9cff);
+    background-image: -o-linear-gradient(#338eff, #4d9cff);
+    background-image: linear-gradient(#338eff, #4d9cff);
+    -webkit-box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
+    -moz-box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
+    box-shadow: inset 0 1px 3px 1px rgba(0,0,0,0.25);
+}
