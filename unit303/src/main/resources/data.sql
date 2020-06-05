@@ -2,7 +2,7 @@ insert into user (id, name, surname, roles, age) values
 (0, 'superuser', 'superuser', 'ROLE_ADMIN', 4);
 
 insert into user (id, name, surname, roles, age, password) values
-(1, 'user', 'user', 'ROLE_ADMIN', 4, 'password');
+(1, 'user', 'user', 'ROLE_GENERAL', 4, '{bcrypt}$2a$10$.A8vkw4A3/0LdRMVI6CaIePmcrTkWfH3Y965p.jHlu17tZWKvIn6O');
 
 insert into order_ent (id, accepted, item_id, quantity, user_id) values
 (1, false, 1, 4, 1),
@@ -10,7 +10,7 @@ insert into order_ent (id, accepted, item_id, quantity, user_id) values
 (3, false, 3, 2, 0);
 
 insert into item (id, name, itemrole, quantity) values
-(1, 'Kozaki', 'SECURE_BOOTS', 10),
+(1, 'Oficerki', 'SECURE_BOOTS', 10),
 (2, 'Mundur', 'SECURE_JACKET', 10),
 (3, 'Plecak', 'SECURE_BACKPACK', 10),
 (4, 'granaty', 'WEAPON_SIDE', 50);

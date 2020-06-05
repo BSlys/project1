@@ -68,7 +68,7 @@ public class ItemService {
     }
 
     public boolean isEnought(Long itemID, Long amount) {
-        if (itemRepo.findById(itemID).get().getQuantity() > amount) {
+        if (itemRepo.findById(itemID).get().getQuantity() >= amount) {
             return true;
         }
         return false;
