@@ -38,11 +38,11 @@
             </tr>
         </tbody>
     </table>
-    <form action="/adduser" method="post" th:object="${userDto}">
-        <p>Name:<input type="text" name="name" th:value="*{name}"></p>
-        <p>Surname:<input type="text" name="surname" th:value="*{surname}"></p>
-        <p>Age:<input type="number" name="age" th:value="*{age}"></p>
-        <p>Password:<input type="text" name="password" th:value="*{password}"></p>
+    <form action="/adduserI" method="post" th:object="${userDto}">
+        <p>Name:<input type="text" name="name" th:value="*{name}" required minlength="3" maxlength="15"></p>
+        <p>Surname:<input type="text" name="surname" th:value="*{surname}" required minlength="3" maxlength="15"></p>
+        <p>Age:<input type="number" name="age" th:value="*{age}" min="1" max="154"></p>
+        <p>Password:<input type="text" name="password" th:value="*{password}" required minlength="3" maxlength="15"></p>
         <select th:field="*{roles}">
             <option th:each="role : ${T(com.sda.werehouse.unit303.model.Roles).values()}"
             th:value="${role}"

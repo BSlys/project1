@@ -2,6 +2,7 @@ package com.sda.werehouse.unit303.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index/**").hasAnyAuthority("ROLE_KEEPER", "ROLE_PRIVATE", "ROLE_GENERAL")
                 .antMatchers("/adduser").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL", "ROLE_PRIVATE")
                 .antMatchers("/adduser").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL", "ROLE_PRIVATE")
+                .antMatchers( "/adduserI").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL")
                 .antMatchers("/deleteUser").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL")
                 .antMatchers("/myOrder").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL", "ROLE_PRIVATE")
                 .antMatchers("/inventory").hasAnyAuthority("ROLE_KEEPER", "ROLE_GENERAL")
@@ -54,9 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         auth.inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder.encode("password"))
-                .roles("USER")
-                .and().withUser("superuser").password(passwordEncoder.encode("password"))
+                .withUser("superuser").password(passwordEncoder.encode("password"))
                 .roles("ADMIN", "KEEPER");
 
 

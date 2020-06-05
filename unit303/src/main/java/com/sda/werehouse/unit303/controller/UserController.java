@@ -33,7 +33,7 @@ public class UserController {
 
 
 
-    @PostMapping("/adduser")
+    @PostMapping("/adduserI")
     public String addUser(@ModelAttribute("userDto") UserDto userDto) {
         userService.addUserToRepo(userDto);
         return "redirect:/adduser";

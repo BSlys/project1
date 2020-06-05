@@ -24,6 +24,10 @@ body {
     padding: 25px 0;
 }
 
+input:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+
 table, tr, td {
     border: 1px solid black;
     padding: 5px;

@@ -50,8 +50,8 @@
 </h1>
 <h1>Kataloguj produkt</h1>
 <form action="/addItem" method="post">
-    <p>Name<input type="text" name="name" th:value="*{ItemDto.name}"></p>
-    <p>Amount<input type="number" name="quantity" th:value="*{ItemDto.quantity}"></p>
+    <p>Name<input type="text" name="name" th:value="*{ItemDto.name}" required minlength="2" maxlength="15"></p>
+    <p>Amount<input type="number" name="quantity" th:value="*{ItemDto.quantity}" min="1" max="999"></p>
     <select th:field="*{ItemDto.itemRole}">
         <option th:each="role : ${T(com.sda.werehouse.unit303.model.ItemRole).values()}"
                 th:text="${role}" th:value="${role}"></option>
