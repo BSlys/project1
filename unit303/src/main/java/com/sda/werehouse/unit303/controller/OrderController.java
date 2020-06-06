@@ -4,6 +4,7 @@ import com.sda.werehouse.unit303.configuration.AuthenticationMenagement;
 import com.sda.werehouse.unit303.model.dto.ItemDto;
 import com.sda.werehouse.unit303.model.dto.OrderDto;
 import com.sda.werehouse.unit303.model.entity.OrderEnt;
+import com.sda.werehouse.unit303.service.ArchiveService;
 import com.sda.werehouse.unit303.service.ItemService;
 import com.sda.werehouse.unit303.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class OrderController {
     public OrderService orderService;
     @Autowired
     public AuthenticationMenagement authenticationMenagement;
+    @Autowired
+    public ArchiveService archiveService;
     @Autowired
     public ItemService itemService;
     public OrderDto orderDtoPending;
@@ -53,6 +56,7 @@ public class OrderController {
         }
         */
         orderService.orderRepo.save(orderEnt);
+        archiveService.updateArchiveEntry(orderEnt);
         return "redirect:/myOrder";
     }
 
@@ -81,6 +85,7 @@ public class OrderController {
             orderEnt = orderEntOptional.get();
             orderEnt.setAccepted(false);
             orderService.orderRepo.save(orderEnt);
+            archiveService.updateArchiveEntry(orderEnt);
         }
         return "redirect:/myOrder";
     }

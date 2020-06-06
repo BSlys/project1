@@ -9,6 +9,11 @@ insert into order_ent (id, accepted, item_id, quantity, user_id) values
 (2, false, 2, 1, 1),
 (3, false, 3, 2, 0);
 
+insert into order_archive_entry (id, item_id, quantity, user_id) values
+(1, 1, 4, 1),
+(2, 2, 1, 1),
+(3, 3, 2, 0);
+
 insert into item (id, name, itemrole, quantity) values
 (1, 'Oficerki', 'SECURE_BOOTS', 10),
 (2, 'Mundur', 'SECURE_JACKET', 10),

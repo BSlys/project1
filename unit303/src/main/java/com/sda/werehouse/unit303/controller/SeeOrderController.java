@@ -2,6 +2,7 @@ package com.sda.werehouse.unit303.controller;
 
 import com.sda.werehouse.unit303.model.dto.ItemDto;
 import com.sda.werehouse.unit303.model.entity.OrderEnt;
+import com.sda.werehouse.unit303.service.ArchiveService;
 import com.sda.werehouse.unit303.service.ItemService;
 import com.sda.werehouse.unit303.service.OrderService;
 import com.sda.werehouse.unit303.service.UserService;
@@ -23,6 +24,8 @@ public class SeeOrderController {
     private ItemService itemService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ArchiveService archiveService;
 
     @GetMapping("/seeOrders")
     public String seeOrdersFor(ItemDto itemDto, Model model) {
@@ -72,6 +75,7 @@ public class SeeOrderController {
                     (order1.getQuantity() + orderService.getRentamount(order1.getItemId())))) {
                 orderEntOptional.get().setAccepted(true);
                 orderService.orderRepo.save(orderEntOptional.get());
+                archiveService.updateArchiveEntry(orderEntOptional.get());
             } else {
                 String message = "Za malo przedmiotow na stanie";
                 return "redirect:/fallback?message=" + message;
