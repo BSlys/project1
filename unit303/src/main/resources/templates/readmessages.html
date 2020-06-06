@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dawne wieści</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<table class="thick">
+    <tr>
+        <td>Sender</td>
+        <td>Date</td>
+        <td>Message</td>
+        <td>Przeczytane</td>
+    </tr>
+    <tr th:each="text : ${oldmesaages}">
+        <form action="/markAsRead" method="post">
+            <td th:text="${text.sender}"></td>
+            <td th:text="${text.date}"></td>
+            <td th:text="${text.message}"></td>
+            <td th:text="${text.isRead()}"></td>
+        </form>
+    </tr>
+</table>
+<h1>Wysłane: </h1>
+<table class="thick">
+    <tr>
+        <td>Adresat</td>
+        <td>Date</td>
+        <td>Message</td>
+        <td>Przeczytane</td>
+    </tr>
+    <tr th:each="text : ${mymessages}">
+        <td th:text="${text.getReciver()}"></td>
+        <td th:text="${text.date}"></td>
+        <td th:text="${text.message}"></td>
+        <td th:text="${text.isRead()}"></td>
+    </tr>
+</table>
+<form action="/index">
+    <button type="submit">Powrót</button>
+</form>
+</body>
+</html>

@@ -15,14 +15,16 @@
         <td>czas złożenia</td>
         <td>czas wydania</td>
         <td>czas zwrotu</td>
+        <td>Ilość</td>
     </tr>
     <tr th:each="entry : ${archiveset}">
-            <td th:text="${entry.getId()}"></td>
-            <td th:text="${entry.getItemId()}"></td>
-            <td th:text="${entry.getUserId()}"></td>
-            <td th:text="${entry.getPostTime()}"></td>
-            <td th:text="${entry.getAcceptTime()}"></td>
-            <td th:text="${entry.getReturnTime()}"></td>
+        <td th:text="${entry.getId()}"></td>
+        <td th:text="${entry.getUserId()}"></td>
+        <td th:text="${entry.getItemId()}"></td>
+        <td th:text="${entry.getPostTime()}"></td>
+        <td th:text="${entry.getAcceptTime()}"></td>
+        <td th:text="${entry.getReturnTime()}"></td>
+        <td th:text="${entry.getQuantity()}"></td>
     </tr>
 </table>
 <form action="/index">
