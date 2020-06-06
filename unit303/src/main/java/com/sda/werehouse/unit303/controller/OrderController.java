@@ -86,6 +86,11 @@ public class OrderController {
             orderEnt.setAccepted(false);
             orderService.orderRepo.save(orderEnt);
             archiveService.updateArchiveEntry(orderEnt);
+            orderService.orderRepo.delete(orderEnt);
+            orderEnt.setId(null);
+            orderService.orderRepo.save(orderEnt);
+            archiveService.updateArchiveEntry(orderEnt);
+
         }
         return "redirect:/myOrder";
     }
