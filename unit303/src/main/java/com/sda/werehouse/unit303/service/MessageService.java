@@ -56,10 +56,10 @@ public class MessageService {
     public List<MessageDto> seeMessagesByMe() {
         String me = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<UserDto> optionalUserDto = userService.getAllUsers().values().stream()
-                .filter(userDto1 -> userDto1.name == me).findAny();
+                .filter(userDto1 -> userDto1.name.equals(me)).findAny();
         List<MessageDto> messageDtoList;
 
-        if (!optionalUserDto.isPresent()) {
+        if (optionalUserDto.isPresent()) {
             messageDtoList = messageRepo.findAll().stream()
                     .filter(messageDto -> messageDto.sender.equals(me))
                     .collect(Collectors.toList());
