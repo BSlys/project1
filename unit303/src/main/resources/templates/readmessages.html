@@ -6,6 +6,7 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<h1>Odebrane: </h1>
 <table class="thick">
     <tr>
         <td>Sender</td>
@@ -14,12 +15,10 @@
         <td>Przeczytane</td>
     </tr>
     <tr th:each="text : ${oldmesaages}">
-        <form action="/markAsRead" method="post">
-            <td th:text="${text.sender}"></td>
-            <td th:text="${text.date}"></td>
-            <td th:text="${text.message}"></td>
-            <td th:text="${text.isRead()}"></td>
-        </form>
+        <td th:text="${text.sender}"></td>
+        <td th:text="${text.date}"></td>
+        <td th:text="${text.message}"></td>
+        <td th:text="${text.isRead()}"></td>
     </tr>
 </table>
 <h1>Wysłane: </h1>
